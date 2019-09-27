@@ -7,6 +7,7 @@ from time import sleep
 rows = 3
 cols = 3
 
+
 # trivial 85
 # trivial con costo 23
 # wrong numbers 79
@@ -100,6 +101,8 @@ def sum_of_manhattan_distances(state):
             distance += manhattan_distance(target, counterpart)
 
     return distance
+
+
 #
 # def trivial_heuristic(state):
 #     0 if state == goal() else 0
@@ -142,11 +145,10 @@ def gs(graph, initial, h):
 
     while not pqueue.empty():
         priority, node, path = pqueue.get_nowait()
-        print(node, path)
         node_repr = repr(node)
 
         if priority == 0:
-            return node, path
+            return node, len(path), len(visited) + 1
 
         if node_repr not in graph:
             graph[node_repr] = possible_moves(node)
@@ -162,6 +164,15 @@ def gs(graph, initial, h):
     return None
 
 
-initial_state = random_state()
+initial_state = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 0]
+]
+# initial_state = [[8, 7, 6], [3, 5, 4], [0, 2, 1]]
+# initial_state = [[8, 7, 6], [3, 5, 4], [0, 2, 1]]
+# initial_state = [[8, 3, 1], [5, 0, 6], [2, 7, 4]]
+# initial_state = [[1, 2, 3], [6, 0, 7], [5, 8, 4]]
 
-print(gs({}, initial_state, number_of_wrong_numbers))
+# print(gs({}, initial_state, number_of_wrong_numbers))
+print(gs({}, initial_state, manhattan_distance))
